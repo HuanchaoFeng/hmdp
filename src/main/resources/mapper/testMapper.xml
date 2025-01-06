@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmdp.mapper.testMapper">
+
+<!--    &lt;!&ndash; 定义resultMap &ndash;&gt;-->
+<!--    <resultMap id="violateDegreeMap" type="java.util.HashMap">-->
+<!--        <result property="Key" column="violate_degree" typeHandler="org.apache.ibatis.type.StringTypeHandler"/>-->
+<!--        <result property="Value" column="count" typeHandler="org.apache.ibatis.type.IntegerTypeHandler"/>-->
+<!--    </resultMap>-->
+
+    <resultMap id="violateDegreeMap" type="java.util.HashMap">
+        <result property="violate_degree" column="violate_degree"/>
+        <result property="count" column="count" javaType="java.lang.Integer"/>
+    </resultMap>
+
+<!--    <resultMap id="violateDegreeMap" type="com.hmdp.entity.testEntity">-->
+<!--        <result property="violate_degree" column="violate_degree"/>-->
+<!--        <result property="id" column="id"/>-->
+<!--    </resultMap>-->
+
+    <!-- 定义select语句 -->
+<!--    <select id="selectAll" resultType="java.util.HashMap">-->
+<!--        SELECT violate_degree,count(*) as count FROM traffic_violate GROUP BY violate_degree-->
+<!--&#45;&#45;         select * from traffic_violate-->
+<!--    </select>-->
+    <select id="selectAll" resultMap="violateDegreeMap">
+        SELECT violate_degree,count(*) as count FROM traffic_violate GROUP BY violate_degree
+--         select * from traffic_violate
+    </select>
+
+    <!-- 定义select语句 resultMap用于在自己定义resultMap -->
+<!--    <select id="selectAll" resultMap="violateDegreeMap">-->
+<!--        select id, violate_degree from traffic_violate-->
+<!--    </select>-->
+    <!--这里有个问题，entity那边可能会有驼峰命名，即使你没用驼峰命名，他从数据库查出来后也可以会找驼峰命名的实体，也可能出错，所以可以先建个resultMap定义一下，要么就干脆entity那边全用驼峰命名-->
+<!--    <select id="selectAll" resultType="com.hmdp.entity.testEntity">-->
+<!--              select id, violate_degree from traffic_violate-->
+<!--    </select>-->
+
+
+</mapper>
